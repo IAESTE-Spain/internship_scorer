@@ -1,0 +1,426 @@
+{
+  "base": 300,
+  "term": -150,
+  "language": {
+    "check": [
+      "Language1",
+      "Language1Level",
+      "Language1Or",
+      "Language2",
+      "Language2Level",
+      "Language2Or",
+      "Language3",
+      "Language3Level"
+    ],
+    "English": 0,
+    "French": -60,
+    "German": -60,
+    "Portuguese": -60,
+    "default": -60,
+    "Spanish": {
+      "Excellent": -60,
+      "Good": -45,
+      "Fair": -20
+    }
+  },
+
+  "period": {
+    "checkWeeks": ["WeeksMin", "WeeksMax"],
+    "checkMonth": ["From", "To"],
+    "8": 40,
+    "12": 20,
+    "default": 0,
+    "Julio,agosto": 40
+  },
+
+  "payment": {
+    "check": ["Payment", "PaymentFrequency"],
+    "minWeek": 190,
+    "minMonth": 800,
+    "over": 50,
+    "points": 10,
+    "week": 4.2
+  },
+
+  "country": {
+    "check": ["OtherRequirements"],
+    "Un solo pais": -60,
+    "Union Europea/Schengen": -40,
+    "Latinoamérica": -40,
+    "Otro grupo de paises": -50
+  },
+
+  "generalDisciplines": {
+    "check": ["GeneralDisciplines", "FieldsOfStudy"],
+    "disciplines": [
+      {
+        "field": "agriculture and food science",
+        "points": 0,
+        "FieldsOfStudy": [
+          {
+            "field": "01.1002",
+            "points": 10
+          }
+        ]
+      },
+      {
+        "field": "natural resources and conservation",
+        "points": 10,
+        "FieldsOfStudy": [
+          {
+            "field": "03.0103",
+            "points": 10
+          },
+          {
+            "field": "03.0104",
+            "points": 10
+          }
+        ]
+      },
+      {
+        "field": "architecture",
+        "points": 20,
+        "FieldsOfStudy": [
+          {
+            "field": "04.0201",
+            "points": 20
+          },
+          {
+            "field": "04.0301",
+            "points": 20
+          },
+          {
+            "field": "04.0401",
+            "points": 20
+          },
+          {
+            "field": "04.0601",
+            "points": 20
+          },
+          {
+            "field": "04.0901",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "field": "it",
+        "points": 0,
+        "FieldsOfStudy": [
+          {
+            "field": "11.0102",
+            "points": 20
+          },
+          {
+            "field": "11.0901",
+            "points": 10
+          }
+        ]
+      },
+      {
+        "field": "education",
+        "points": 0,
+        "FieldsOfStudy": []
+      },
+      {
+        "field": "engineering",
+        "points": 0,
+        "FieldsOfStudy": [
+          {
+            "field": "14.0501",
+            "points": 20
+          },
+          {
+            "field": "14.1401",
+            "points": 10
+          },
+          {
+            "field": "14.2001",
+            "points": 20
+          },
+          {
+            "field": "14.2201",
+            "points": 10
+          },
+          {
+            "field": "14.2301",
+            "points": 20
+          },
+          {
+            "field": "14.3501",
+            "points": 20
+          },
+          {
+            "field": "14.3601",
+            "points": 20
+          },
+          {
+            "field": "14.4301",
+            "points": 20
+          },
+          {
+            "field": "15.0702",
+            "points": 20
+          },
+          {
+            "field": "15.1601",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "field": "civil engineering",
+        "points": 20,
+        "FieldsOfStudy": [
+          {
+            "field": "14.0801",
+            "points": 20
+          },
+          {
+            "field": "14.0802",
+            "points": 20
+          },
+          {
+            "field": "14.0803",
+            "points": 20
+          },
+          {
+            "field": "14.0804",
+            "points": 20
+          },
+          {
+            "field": "14.0805",
+            "points": 20
+          },
+          {
+            "field": "14.2101",
+            "points": 10
+          },
+          {
+            "field": "14.3301",
+            "points": 20
+          },
+          {
+            "field": "14.3801",
+            "points": 10
+          },
+          {
+            "field": "14.3901",
+            "points": 10
+          }
+        ]
+      },
+      {
+        "field": "electrical engineering",
+        "points": 20,
+        "FieldsOfStudy": [
+          {
+            "field": "14.1001",
+            "points": 20
+          },
+          {
+            "field": "14.1003",
+            "points": 20
+          },
+          {
+            "field": "14.1004",
+            "points": 10
+          },
+          {
+            "field": "14.1099",
+            "points": 20
+          },
+          {
+            "field": "14.4101",
+            "points": 20
+          },
+          {
+            "field": "14.XX01",
+            "points": 20
+          },
+          {
+            "field": "14.XX02",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "field": "mechanical engineering",
+        "points": 20,
+        "FieldsOfStudy": [
+          {
+            "field": "14.0201",
+            "points": 20
+          },
+          {
+            "field": "14.1101",
+            "points": 20
+          },
+          {
+            "field": "14.1901",
+            "points": 20
+          },
+          {
+            "field": "14.4201",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "field": "biological and biomedical sciences",
+        "points": 10,
+        "FieldsOfStudy": [
+          {
+            "field": "26.0101",
+            "points": 10
+          },
+          {
+            "field": "26.0102",
+            "points": 10
+          },
+          {
+            "field": "26.0202",
+            "points": 10
+          },
+          {
+            "field": "26.0203",
+            "points": 10
+          },
+          {
+            "field": "26.0204",
+            "points": 10
+          },
+          {
+            "field": "26.0205",
+            "points": 10
+          },
+          {
+            "field": "26.0207",
+            "points": 10
+          },
+          {
+            "field": "26.0210",
+            "points": 10
+          },
+          {
+            "field": "26.0502",
+            "points": 10
+          },
+          {
+            "field": "26.1201",
+            "points": 10
+          }
+        ]
+      },
+      {
+        "field": "mathematics and statistics",
+        "points": 0,
+        "FieldsOfStudy": []
+      },
+      {
+        "field": "physical sciences",
+        "points": 0,
+        "FieldsOfStudy": []
+      },
+      {
+        "field": "physics",
+        "points": 0,
+        "FieldsOfStudy": []
+      },
+      {
+        "field": "chemistry, material sceince, and chemical engineering",
+        "points": 20,
+        "FieldsOfStudy": [
+          {
+            "field": "40.0501",
+            "points": 10
+          },
+          {
+            "field": "40.0502",
+            "points": 10
+          },
+          {
+            "field": "40.0503",
+            "points": 10
+          },
+          {
+            "field": "40.0504",
+            "points": 10
+          },
+          {
+            "field": "40.0506",
+            "points": 10
+          },
+          {
+            "field": "40.0507",
+            "points": 10
+          },
+          {
+            "field": "40.0508",
+            "points": 10
+          },
+          {
+            "field": "40.0509",
+            "points": 10
+          },
+          {
+            "field": "40.1001",
+            "points": 10
+          },
+          {
+            "field": "40.1002",
+            "points": 10
+          },
+          {
+            "field": "14.0701",
+            "points": 20
+          },
+          {
+            "field": "14.0702",
+            "points": 20
+          },
+          {
+            "field": "14.1801",
+            "points": 20
+          },
+          {
+            "field": "14.2501",
+            "points": 20
+          },
+          {
+            "field": "14.2801",
+            "points": 10
+          },
+          {
+            "field": "14.3201",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "field": "economics and social sciences",
+        "points": 0,
+        "FieldsOfStudy": []
+      },
+      {
+        "field": "business, management and marketing",
+        "points": 0,
+        "FieldsOfStudy": []
+      },
+      {
+        "field": "default",
+        "default": 0,
+        "FieldsOfStudy": [
+          {
+            "field": "52.0203",
+            "points": 20
+          },
+          {
+            "field": "52.0205",
+            "points": 10
+          }
+        ]
+      }
+    ]
+  }
+}
