@@ -1,0 +1,250 @@
+{
+  "base": 300,
+  "on_term": 0,
+  "past_term": -150,
+  "language": {
+    "check": [
+      "Language1",
+      "Language1Level",
+      "Language1Or",
+      "Language2",
+      "Language2Level",
+      "Language2Or",
+      "Language3",
+      "Language3Level"
+    ],
+    "languages": {
+      "English": 0,
+      "French": -60,
+      "German": -60,
+      "Portuguese": -60,
+      "Spanish_Excellent": -60,
+      "Spanish_Good": -45,
+      "Spanish_Fair": -20,
+      "Default": -60
+    }
+  },
+  "period": {
+    "checkWeeks": [
+      "WeeksMin",
+      "WeeksMax"
+    ],
+    "checkMonth": [
+      "From",
+      "To"
+    ],
+    "pointsWeeks": {
+      "8": 40,
+      "12": 20,
+      "default": 0
+    },
+    "default": 0
+  },
+  "payment": {
+    "check": [
+      "Payment",
+      "PaymentFrequency"
+    ],
+    "minWeek": 190,
+    "minMonth": 800,
+    "stepAmount": 50,
+    "points": 10,
+    "week": 4.2
+  },
+  "country": {
+    "check": [
+      "OtherRequirements"
+    ],
+    "countries": {
+      "Un solo pais": -60,
+      "Union Europea/Schengen/Otan": -40,
+      "Latinoamérica": -40,
+      "Otro grupo de paises": -50
+    }
+  },
+  "discipline": {
+    "check": [
+      "GeneralDisciplines",
+      "FieldsOfStudy"
+    ],
+    "disciplines": {
+      "Agriculture": {
+        "points": 0,
+        "FieldsOfStudy": {
+          "Food Technology and Processing": 10
+        }
+      },
+      "Environmental Engineering/Sciences": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Architecture": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Civil Engineering": {
+        "points": 10,
+        "FieldsOfStudy": {
+          "Structural Engineering": 10,
+          "Construction Engineering": 10
+        }
+      },
+      "Mining and Mineral Engineering": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Electrical Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+          "General": 10
+        }
+      },
+      "Electronics Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Power Engineering": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Telecommunications": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Mechanical Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+          "General": 10,
+          "Fluid Mechanics": 20,
+          "Biochemical Engineering": 20
+        }
+      },
+      "Mechatronics, Robotics and Automation": {
+        "points": 20,
+        "FieldsOfStudy": {
+          "General": 10,
+          "Biomechanical Engineering": 20
+        }
+      },
+      "Industrial Engineering/System Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Process Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Aerospace, Aeronautical and Astronautical/Space Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Computer Science/ Informatics": {
+        "points": -20,
+        "FieldsOfStudy": {
+          "Artificial Intelligence": 20,
+          "Machine Learning": 20
+        }
+      },
+      "Cybersecurity": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Bioinformatics": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Biology": {
+        "points": 10,
+        "FieldsOfStudy": {
+          "General": 10,
+          "Computational Biology & Bioinformatics": 10,
+          "Molecular Biology/ Cell Biology": 20,
+          "Bioanalytics": 10
+        }
+      },
+      "Biomedical Sciences": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Bioengineering/Biomedical Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Biotechnology": {
+        "points": 20,
+        "FieldsOfStudy": {
+          "General": 10,
+          "Medical Biotechnology": 10,
+          "Industrial Biotechnology": 10,
+          "Environmental Biotechnology": 10
+        }
+      },
+      "Biochemistry": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Microbiology": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Pharmaceutical Studies/ Pharmacology": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Physics and Physical Sciences": {
+        "points": 0,
+        "FieldsOfStudy": {
+          "Nuclear Physics": 10,
+          "Optics/ Optical Sciences": 10
+        }
+      },
+      "Chemistry and Chemical Engineering": {
+        "points": 20,
+        "FieldsOfStudy": {
+          "General": 10,
+          "Polymer/Plastics Engineering": 10,
+          "Nanotechnology": 10
+        }
+      },
+      "Material Engineering and Sciences": {
+        "points": 20,
+        "FieldsOfStudy": {
+          "General": 10,
+          "Polymer/Plastics Engineering": 10,
+          "Nanotechnology": 10
+        }
+      },
+      "Petroleum Engineering": {
+        "points": 10,
+        "FieldsOfStudy": {
+        }
+      },
+      "Communication, Journalism and Related Programs": {
+        "points": -20,
+        "FieldsOfStudy": {
+        }
+      },
+      "Economics, Business, Management and Operations": {
+        "points": -20,
+        "FieldsOfStudy": {
+        }
+      }
+    }
+  }
+}

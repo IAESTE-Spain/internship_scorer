@@ -1,37 +1,46 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
+from typing import LiteralString
 import customtkinter
 from PIL import Image
 from tkinter import filedialog as fd
-import backend_old as bk
 import os
 import sys
+import scorer_backend as backend
+
+global info
+
+
+class InformationSaver:
+    def __init__(self):
+        self.offers_id_all: list[str] = []
+        self.actual_offer_id: str = ""
+        self.actual_offer_row: list[str] = []
+        self.file_csv: str = ""
+        self.offers_id_bid: list[str] = []
+        self.progress_bar_value: int = 0
+        self.single_step: int = 0
+
+        self.buttons: any = []
+        self.index_selected_value: int = -1
+        self.selected_value: str = ""
+
 
 if getattr(sys, 'frozen', False):
     os.chdir(sys._MEIPASS)
 
 
-def change_appearance_mode_event(new_appearance_mode: str):
+def start_global():
+    global info
+    info = InformationSaver()
+
+
+def change_appearance_mode_event(new_appearance_mode: str) -> None:
     customtkinter.set_appearance_mode(new_appearance_mode)
 
 
-# Data
-offersIDAll = []
-actualOfferID = ""
-actualRowOffer = []
-fileCSV = ""
-offersIDBid = []
-
-progressBarValue = 0
-singleStep = 0
-
-buttons = []
-index_selected_value = -1
-selected_value = None
-
-
-def setting_name_of_file():
+def setting_name_of_file() -> None:
     filetypes = (
         ('text files', '*.csv'),
         ('All files', '*.*')
@@ -43,33 +52,28 @@ def setting_name_of_file():
         filetypes=filetypes
     )
 
-    global fileCSV
-    fileCSV = filename
+    info.file_csv = filename
 
 
-def errorCSV():
+def error_csv() -> None:
     messagebox.showerror("", "Tienes que elegir un documento!")
 
 
-def startBids():
-    global fileCSV
-    global actualOfferID
-    global actualRowOffer
-    global offersIDAll
-    global singleStep
-    if fileCSV == "":
-        errorCSV()
+def start_bid() -> None:
+    global info
+    if info.file_csv == "":
+        error_csv()
         return
-    fileNameSave = fileCSV.split("/")[-1].split(".")[0]
-    bk.saveCSVName(fileNameSave)
-    offersIDAll = bk.getOffersIds(fileCSV)
-    singleStep = 1 / len(offersIDAll)
-    actualOfferID = offersIDAll[0]
-    actualRowOffer = bk.getOfferInfo(actualOfferID)
-    fillComponentsInitial(actualRowOffer)
+
+    backend.initializer_file(info.file_csv)
+    info.offers_id_all = backend.get_all_offers_id()
+    info.single_step = 1 / len(info.offers_id_all)
+    info.actual_offer_id = info.offers_id_all[0]
+    info.actual_offer_row = backend.get_offer_info(info.actual_offer_id)
+    fill_initial_components_values(info.actual_offer_row)
 
 
-def fillComponentsInitial(row):
+def fill_initial_components_values(row) -> None:
     titleTextBox.configure(text="Oferta: " + row['Ref.No'])
     textbox.configure(state="normal")
     textbox.delete("0.0", tk.END)
@@ -81,123 +85,94 @@ def fillComponentsInitial(row):
 
     checkIsSecond.set(False)
     textbox.configure(state="disable")
-    startOfferButtons()
+    start_offer_buttons()
     button_next_offer.configure(state="active", fg_color="#1f538d")
 
 
-def saveOffer():
-    global actualRowOffer
-    global actualOfferID
-    global offersIDAll
-    global progressBarValue
-    global singleStep
+def start_offer_buttons() -> None:
+    for button_option in info.buttons:
+        button_option.configure(state="active", fg_color='#1f538d')
+    info.selected_value = None
 
-    for button in buttons:
-        button.configure(state="disabled", fg_color="#1f538d")
+
+def save_offer() -> None:
+    for button_option in info.buttons:
+        button_option.configure(state="disabled", fg_color="#1f538d")
     button_next_offer.configure(state="disabled", fg_color="#1f538d")
-    saveBid()
-    if len(offersIDAll) - 1 == offersIDAll.index(actualOfferID):
-        offersTable.insert(parent='', index=tk.END, values=actualOfferID)
-        progressBarValue += singleStep
-        progress.set(progressBarValue)
-        finishProgram()
+    save_bid()
+    if len(info.offers_id_all) - 1 == info.offers_id_all.index(info.actual_offer_id):
+        offersTable.insert(parent='', index=tk.END, values=info.actual_offer_id)
+        info.progress_bar_value += info.single_step
+        progress.set(info.progress_bar_value)
+        finish_program()
     else:
-        changeToNextOffer()
-        actualRowOffer = bk.getOfferInfo(actualOfferID)
-        fillComponentsInitial(actualRowOffer)
-        startOfferButtons()
+        change_to_next_offer()
+        info.actual_offer_row = backend.get_offer_info(info.actual_offer_id)
+        fill_initial_components_values(info.actual_offer_row)
+        start_offer_buttons()
         button_next_offer.configure(state="active", fg_color="#1f538d")
 
 
-def update_selected_country(index, new_value):
-    global selected_value
-    global index_selected_value
+def update_selected_country(index, new_value) -> None:
     # Disable the selected button and enable others
-    for i, button in enumerate(buttons):
-        if i == index:
-            button.configure(state="disabled", fg_color="yellow")
+    for index, button_option in enumerate(info.buttons):
+        if index == index:
+            button_option.configure(state="disabled", fg_color="yellow")
         else:
-            button.configure(state="active", fg_color='#1f538d')
+            button_option.configure(state="active", fg_color='#1f538d')
     # Update the corresponding variable
-    selected_value = new_value
-    index_selected_value = index
+    info.selected_value = new_value
+    info.index_selected_value = index
 
 
-def startOfferButtons():
-    global selected_value
-    for button in buttons:
-        button.configure(state="active", fg_color='#1f538d')
-    selected_value = None
-
-
-def changeToNextOffer():
-    global actualOfferID
-    global offersIDAll
-    global offersIDBid
-    global progressBarValue
-    global singleStep
-
-    indexOffer = offersIDAll.index(actualOfferID)
-    if actualOfferID in offersIDBid:
-        actualOfferID = offersIDAll[len(offersIDBid)]
+def change_to_next_offer() -> None:
+    index_offer = info.offers_id_all.index(info.actual_offer_id)
+    if info.actual_offer_id in info.offers_id_bid:
+        info.actual_offer_id = info.offers_id_all[len(info.offers_id_bid)]
         return
 
-    offersTable.insert(parent='', index=tk.END, values=actualOfferID)
-    offersIDBid.append(actualOfferID)
-    actualOfferID = offersIDAll[indexOffer + 1]
-    progressBarValue += singleStep
-    progress.set(progressBarValue)
+    offersTable.insert(parent='', index=tk.END, values=info.actual_offer_id)
+    info.offers_id_bid.append(info.actual_offer_id)
+    info.actual_offer_id = info.offers_id_all[index_offer + 1]
+    info.progress_bar_value += info.single_step
+    progress.set(info.progress_bar_value)
 
 
-def saveBid():
-    global actualOfferID
-    global selected_value
-    global index_selected_value
-    configBid = []
-    configBid.append(actualOfferID)
-    configBid.append(textbox.get("1.0", tk.END))
-    configBid.append(checkIsSecond.get())
-    if selected_value == None:
-        selected_value = "Sin restricción"
-        index_selected_value = 5
-    configBid.append(index_selected_value)
-    configBid.append(selected_value)
-    bk.setOfferBidParameters(configBid)
+def save_bid() -> None:
+    config_bid = [info.actual_offer_id, textbox.get("1.0", tk.END), checkIsSecond.get()]
+    if info.selected_value == None or info.selected_value == "":
+        info.selected_value = "Sin restricción"
+        info.index_selected_value = 5
+    config_bid.append(info.index_selected_value)
+    config_bid.append(info.selected_value)
+    backend.save_bid_parameters(info.actual_offer_id, config_bid)
 
 
-def fillComponentsOfSavedBid(componentsParameters):
-    global actualOfferID
-    global selected_value
-    global index_selected_value
-    global actualOfferID
-    global actualRowOffer
-
-    titleTextBox.configure(text="Oferta: " + componentsParameters[0])
-    actualOfferID = componentsParameters[0]
+def fill_components_of_saved_bid(components_parameters: any) -> None:
+    titleTextBox.configure(text="Oferta: " + components_parameters[0])
+    info.actual_offer_id = components_parameters[0]
     textbox.configure(state="normal")
     textbox.delete("0.0", tk.END)
 
-    textbox.insert("0.0", componentsParameters[1])
+    textbox.insert("0.0", components_parameters[1])
 
-    checkIsSecond.set(componentsParameters[2])
+    checkIsSecond.set(components_parameters[2])
 
     textbox.configure(state="disable")
-    update_selected_country(componentsParameters[3], componentsParameters[4])
-    selected_value = componentsParameters[4]
-    index_selected_value = componentsParameters[3]
+    update_selected_country(components_parameters[3], components_parameters[4])
+    info.selected_value = components_parameters[4]
+    info.index_selected_value = components_parameters[3]
 
     button_next_offer.configure(state="active", fg_color="#1f538d")
 
-    pass
 
-
-def on_treeview_click(event):
+def on_treeview_click(event: any) -> None:
     # error puedo seleccionar titulo
     item = offersTable.selection()[0]
     value = offersTable.item(item, 'values')[0]
 
-    configOffer = bk.getOfferBidParameters(value)
-    fillComponentsOfSavedBid(configOffer)
+    config_offer = backend.get_bid_parameters(value)
+    fill_components_of_saved_bid(config_offer)
 
 
 def finish_scores():
@@ -206,14 +181,14 @@ def finish_scores():
     print("finish----------")
 
 
-def finishProgram():
-    bk.startCheckingRules()
+def finish_program():
+    # bk .startCheckingRules()
     print("program finish")
     finish_scores()
     pass
 
 
-def resource_path(relative_path):
+def resource_path(relative_path) -> LiteralString | str | bytes:
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -223,6 +198,8 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+
+start_global()
 
 # Data
 maxOffers = 100
@@ -257,7 +234,7 @@ button_csv_finder = customtkinter.CTkButton(lFrame, text="Select file...", fg_co
 button_csv_finder.pack(side="top")
 
 button_start_offers = customtkinter.CTkButton(lFrame, text="Start", fg_color="transparent", border_width=2,
-                                              text_color=("gray10", "#DCE4EE"), command=startBids)
+                                              text_color=("gray10", "#DCE4EE"), command=start_bid)
 button_start_offers.pack(side="top")
 
 appearance_mode_optionemenu = customtkinter.CTkOptionMenu(lFrame, values=["Light", "Dark"],
@@ -296,16 +273,16 @@ option_chooser.grid_columnconfigure(5, weight=1)
 option_chooser.grid_rowconfigure(2, weight=1)
 
 for i, label in enumerate(
-        ["Un solo pais", "Union Europea/Schengen", "Latinoamérica", "Otro grupo de paises", "Sin restricción"]):
+        ["Un solo pais", "Union Europea/Schengen/Otan", "Latinoamérica", "Otro grupo de paises", "Sin restricción"]):
     button = customtkinter.CTkButton(option_chooser, text=label,
                                      command=lambda label=label, i=i: update_selected_country(i, label),
                                      state="disabled")
     button.grid(row=i // 3, column=i % 3, padx=(20, 10), pady=(10, 10), sticky="ew")
-    buttons.append(button)
+    info.buttons.append(button)
 
 finish_bid_selector = customtkinter.CTkFrame(mFrame)
 finish_bid_selector.pack(side="bottom", pady=(0, 50))
-button_next_offer = customtkinter.CTkButton(finish_bid_selector, text="Siguiente oferta", command=saveOffer,
+button_next_offer = customtkinter.CTkButton(finish_bid_selector, text="Siguiente oferta", command=save_offer,
                                             state="disabled")
 button_next_offer.pack(side="bottom", padx=(20, 20), pady=(10, 10))
 
@@ -324,8 +301,8 @@ offersTable.heading('Name', text='Name of offer')
 offersTable.pack(fill='both', expand=True)
 offersTable.bind('<ButtonRelease-1>', on_treeview_click)
 
-for i in offersIDBid:
-    name = offersIDBid[i]
+for i in info.offers_id_bid:
+    name = i
     offersTable.insert(parent='', index=tk.END, values=name)
 
 # Slider para ver el progreso

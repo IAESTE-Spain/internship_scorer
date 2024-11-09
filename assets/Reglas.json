@@ -23,35 +23,45 @@
       "Fair": -20
     }
   },
-
   "period": {
-    "checkWeeks": ["WeeksMin", "WeeksMax"],
-    "checkMonth": ["From", "To"],
+    "checkWeeks": [
+      "WeeksMin",
+      "WeeksMax"
+    ],
+    "checkMonth": [
+      "From",
+      "To"
+    ],
     "8": 40,
     "12": 20,
     "default": 0,
     "Julio,agosto": 40
   },
-
   "payment": {
-    "check": ["Payment", "PaymentFrequency"],
+    "check": [
+      "Payment",
+      "PaymentFrequency"
+    ],
     "minWeek": 190,
     "minMonth": 800,
     "over": 50,
     "points": 10,
     "week": 4.2
   },
-
   "country": {
-    "check": ["OtherRequirements"],
+    "check": [
+      "OtherRequirements"
+    ],
     "Un solo pais": -60,
     "Union Europea/Schengen": -40,
     "Latinoamérica": -40,
     "Otro grupo de paises": -50
   },
-
   "generalDisciplines": {
-    "check": ["GeneralDisciplines", "FieldsOfStudy"],
+    "check": [
+      "GeneralDisciplines",
+      "FieldsOfStudy"
+    ],
     "disciplines": [
       {
         "field": "agriculture and food science",

@@ -149,7 +149,10 @@ def languagesConfig(row):
                 isSpanish = True
             else:
                 if 'Level' in opt and isSpanish:
-                    langFormatted, _ = lang.split('(')[0].split(maxsplit=1)
+                    langFormatted = lang.split('(')[0].split(maxsplit=1)[0]
+                    print("/./////////////////////////////////////////")
+                    print(lang)
+                    print(langFormatted)
                     allresults.append(lanRules['Spanish'].get(langFormatted, 0))
                     isSpanish = False
                 elif 'Level' not in opt:
@@ -333,7 +336,7 @@ def saveConfigToPoints():
             writer_obj.writerow(row)
 
 
-# Get the final result of the the offer, and save it in the array result
+# Get the final result of the offer, and save it in the array result
 def getResultBid():
     global result
 
@@ -366,6 +369,7 @@ def createCSV():
     # Formatear la cabecera (primera fila)
     for row in ws.iter_rows(min_row=1, max_row=len(result), min_col=1, max_col=len(result[0])):
         for cell in row:
+            # a
             # Aplicar bordes
             cell.border = thin_border
             # Formato para la cabecera
@@ -403,8 +407,3 @@ def createCSV():
     wb.save(ruta_completa)
 
     print(f"Archivo guardado en: {ruta_completa}")
-
-
-
-
-
