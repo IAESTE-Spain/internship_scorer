@@ -16,6 +16,7 @@ class Reader:
         :param folder_path: Path in the OS to the folder where the PDFs are located
         :raise ValueError: If the path do not exist in the OS
         """
+
         if not os.path.exists(folder_path):
             raise ValueError("The folder path is not valid")
         self.folder_path = folder_path
@@ -40,7 +41,6 @@ class Reader:
         """
         files: list[str] = os.listdir(self.folder_path)
 
-        assert len(files) > 0, "The folder path is empty"
         if len(files) == 0:
             raise FileNotFoundError("The folder is empty")
 
@@ -73,9 +73,10 @@ class Reader:
         >>> Reader.extract_text_from_pdf("test.pdf")
         This is a pdf test
         """
-        full_path_pdf: str = self.folder_path + pdf_name
+        full_path_pdf: str = self.folder_path + "/" + pdf_name
         try:
             text = extract_text(full_path_pdf)
+            text = text.replace('\n\n\x0c', '').strip()
         except FileNotFoundError:
             raise FileNotFoundError("The PDF does not exist in the folder")
         else:
